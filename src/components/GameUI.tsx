@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence, useMotionValue } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GRID_SIZE, BlockShape } from '../constants';
 import { BoardState, canPlaceBlock } from '../utils';
 import { Trophy, RefreshCw, Star } from 'lucide-react';
