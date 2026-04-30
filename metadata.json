@@ -1,0 +1,6 @@
+{
+  "name": "Block Blast",
+  "description": "A vibrant block-matching puzzle game where you clear rows and columns to score points.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
