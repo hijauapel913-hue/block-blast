@@ -15,8 +15,13 @@ export const useGameState = () => {
   const [currentBlocks, setCurrentBlocks] = useState<BlockShape[]>([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(() => {
-    const saved = localStorage.getItem('blockBlast_highScore');
-    return saved ? parseInt(saved, 10) : 0;
+    try {
+      const saved = localStorage.getItem('blockBlast_highScore');
+      return saved ? parseInt(saved, 10) : 0;
+    } catch (e) {
+      console.error('LocalStorage not accessible:', e);
+      return 0;
+    }
   });
   const [status, setStatus] = useState<'playing' | 'gameover'>('playing');
 
@@ -25,7 +30,7 @@ export const useGameState = () => {
       const randomShape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
       return {
         ...randomShape,
-        id: crypto.randomUUID(),
+        id: Math.random().toString(36).substring(2, 15),
       };
     });
     setCurrentBlocks(newBlocks);
@@ -45,7 +50,11 @@ export const useGameState = () => {
   useEffect(() => {
     if (score > highScore) {
       setHighScore(score);
-      localStorage.setItem('blockBlast_highScore', score.toString());
+      try {
+        localStorage.setItem('blockBlast_highScore', score.toString());
+      } catch (e) {
+        // Ignore storage errors
+      }
     }
   }, [score, highScore]);
 
